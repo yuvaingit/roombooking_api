@@ -12,6 +12,28 @@ export const yoga = createYoga({
   schema,
   graphqlEndpoint: "/graphql",
   landingPage: true,
+  plugins: [
+    {
+      async onResponse({ response, fetchAPI, setResponse }) {
+        if (response.headers.get("content-type")?.includes("text/html")) {
+          let html = await response.text();
+          const targetIdx = html.indexOf("Not the page you are looking for");
+          if (targetIdx !== -1) {
+            const secStart = html.lastIndexOf("<section", targetIdx);
+            if (secStart !== -1) {
+              html = html.substring(0, secStart) + "</main></body></html>";
+            }
+          }
+          setResponse(
+            new fetchAPI.Response(html, {
+              status: response.status,
+              headers: response.headers,
+            })
+          );
+        }
+      },
+    },
+  ],
 });
 
 const server = createServer(yoga);
