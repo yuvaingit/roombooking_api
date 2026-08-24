@@ -108,10 +108,8 @@ const HOME_PAGE_HTML = `<!DOCTYPE html>
 
 export default async function handler(req: any, res: any) {
   try {
-    const rawUrl = req.url || "/";
-
     // Serve exact Home Page HTML when visiting root domain in browser
-    if (req.method === "GET" && (rawUrl === "/" || rawUrl === "" || rawUrl === "/api" || rawUrl === "/api/index")) {
+    if (req.method === "GET" && !req.url?.startsWith("/graphql")) {
       res.statusCode = 200;
       res.setHeader("Content-Type", "text/html; charset=utf-8");
       res.end(HOME_PAGE_HTML);
