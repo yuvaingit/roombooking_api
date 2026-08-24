@@ -3,7 +3,7 @@ import { yoga } from "../src/server";
 import prisma from "../src/db";
 
 async function gql(query: string, variables?: Record<string, any>) {
-  const res = await yoga.fetch("http://localhost:4000/graphql", {
+  const res = await yoga.fetch("http://localhost:4000/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query, variables }),

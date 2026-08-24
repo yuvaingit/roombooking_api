@@ -10,7 +10,7 @@ export const schema = createSchema({
 
 export const yoga = createYoga({
   schema,
-  graphqlEndpoint: "/graphql",
+  graphqlEndpoint: "/",
   landingPage: true,
 });
 
@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 4000;
 
 if (process.env.NODE_ENV !== "test" && !process.env.VERCEL) {
   server.listen(PORT, () => {
-    console.log(`🚀 Room Booking GraphQL API running at http://localhost:${PORT}/graphql`);
+    console.log(`🚀 Room Booking GraphQL API running at http://localhost:${PORT}`);
   });
 }
 
