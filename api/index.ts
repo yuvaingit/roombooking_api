@@ -5,8 +5,8 @@ export default async function handler(req: any, res: any) {
     const rawUrl = req.url || "/";
     const acceptHeader = req.headers?.accept || "";
 
-    // Serve GraphQL Yoga landing page HTML on landing GET requests, stripping 404 notice text
-    if (req.method === "GET" && acceptHeader.toLowerCase().includes("text/html") && !rawUrl.startsWith("/graphql")) {
+    // Serve GraphQL Yoga landing page HTML on all landing requests, stripping 404 notice text
+    if (!rawUrl.startsWith("/graphql")) {
       const yogaResponse = await yoga.fetch("http://localhost/", {
         method: "GET",
         headers: { accept: "text/html" },
