@@ -5,16 +5,16 @@ export default async function handler(req: any, res: any) {
     const rawUrl = req.url || "/";
     const acceptHeader = req.headers?.accept || "";
 
-    // Serve exact GraphQL Yoga landing page HTML on root GET requests, stripping the 404 notice section
+    // Serve exact GraphQL Yoga Home Page on root GET requests
     if ((rawUrl === "/" || rawUrl === "" || rawUrl === "/api" || rawUrl === "/api/index") && req.method === "GET" && acceptHeader.includes("text/html")) {
-      const yogaResponse = await yoga.fetch("http://localhost/", {
+      const yogaResponse = await yoga.fetch("http://localhost/graphql", {
         method: "GET",
         headers: { accept: "text/html" },
       });
 
       let html = await yogaResponse.text();
 
-      // Remove the "Not the page you are looking for?" 404 section completely
+      // Strip the 404 text notice at the bottom if present, keeping the exact Welcome Home Page UI
       if (html.includes('<section class="not-what-your-looking-for">')) {
         html = html.split('<section class="not-what-your-looking-for">')[0] + '</body></html>';
       }
