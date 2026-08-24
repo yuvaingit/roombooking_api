@@ -34,8 +34,8 @@ A production-ready, concurrency-safe GraphQL API backend built with **Bun**, **T
 
 ### 1. Clone & Install Dependencies
 ```bash
-git clone <repository-url>
-cd room-booking-api
+git clone https://github.com/yuvaingit/roombooking_api.git
+cd roombooking_api
 bun install
 ```
 
@@ -49,6 +49,8 @@ Ensure your `DATABASE_URL` points to your PostgreSQL instance:
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/roombooking?schema=public"
 PORT=4000
 ```
+> [!NOTE]
+> `.env` is used locally for database configuration and is not committed or submitted. Never attach your actual `.env` file to source control.
 
 ### 3. Run Database Migrations
 Apply Prisma migrations (which enables `btree_gist` extension and the Exclusion Constraint):
