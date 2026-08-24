@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun run src/server.ts",
+    "build": "prisma generate",
     "start": "bun run src/server.ts",
     "test": "bun test",
     "prisma:generate": "prisma generate",
