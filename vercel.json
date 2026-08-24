@@ -2,8 +2,7 @@
   "version": 2,
   "buildCommand": "bun run build || npm run build",
   "rewrites": [
-    { "source": "/graphql", "destination": "/api/index" },
-    { "source": "/", "destination": "/api/index" },
-    { "source": "/(.*)", "destination": "/api/index" }
+    { "source": "/graphql", "destination": "/api" },
+    { "source": "/(.*)", "destination": "/api" }
   ]
 }
