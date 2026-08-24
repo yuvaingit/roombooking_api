@@ -15,8 +15,9 @@ export default async function handler(req: any, res: any) {
       let html = await yogaResponse.text();
 
       // Strip the 404 text notice section at the bottom, leaving only the official Landing Page UI
-      if (html.includes('<section class="not-what-your-looking-for">')) {
-        html = html.split('<section class="not-what-your-looking-for">')[0] + '</body></html>';
+      const sectionMatch = html.match(/<section\s+class=["']?not-what-your-looking-for["']?>/i);
+      if (sectionMatch && sectionMatch.index !== undefined) {
+        html = html.slice(0, sectionMatch.index) + "</main></body></html>";
       }
 
       res.statusCode = 200;
