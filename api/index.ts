@@ -2,9 +2,27 @@ import { yoga } from "../src/server";
 
 export default async function handler(req: any, res: any) {
   try {
-    // Map Vercel internal function rewrites (/api/index or /api) back to '/' for root requests
-    if (req.url === "/api/index" || req.url === "/api" || req.url === "") {
-      req.url = "/";
+    const rawUrl = req.url || "/";
+    const acceptHeader = req.headers?.accept || "";
+
+    // Serve exact GraphQL Yoga landing page HTML on root GET requests, stripping the 404 notice section
+    if ((rawUrl === "/" || rawUrl === "" || rawUrl === "/api" || rawUrl === "/api/index") && req.method === "GET" && acceptHeader.includes("text/html")) {
+      const yogaResponse = await yoga.fetch("http://localhost/", {
+        method: "GET",
+        headers: { accept: "text/html" },
+      });
+
+      let html = await yogaResponse.text();
+
+      // Remove the "Not the page you are looking for?" 404 section completely
+      if (html.includes('<section class="not-what-your-looking-for">')) {
+        html = html.split('<section class="not-what-your-looking-for">')[0] + '</body></html>';
+      }
+
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.end(html);
+      return;
     }
 
     return await yoga(req, res);
