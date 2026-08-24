@@ -10,7 +10,7 @@ export const schema = createSchema({
 
 export const yoga = createYoga({
   schema,
-  landingPage: true,
+  landingPage: false,
 });
 
 const server = createServer(yoga);
