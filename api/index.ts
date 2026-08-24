@@ -2,8 +2,8 @@ import { yoga } from "../src/server";
 
 export default async function handler(req: any, res: any) {
   try {
-    // Standardize root request URL to '/' so Yoga renders its official Welcome Home Page
-    if (req.url === "/api" || req.url === "/api/index" || req.url === "") {
+    // Map Vercel internal function rewrites (/api/index or /api) back to '/' for root requests
+    if (req.url === "/api/index" || req.url === "/api" || req.url === "") {
       req.url = "/";
     }
 
