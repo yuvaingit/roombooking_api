@@ -2,6 +2,13 @@ import { yoga } from "../src/server";
 
 export default async function handler(req: any, res: any) {
   try {
+    const rawUrl = req.url || "/";
+    
+    // Preserve /graphql endpoint or map root /api rewrites to / so Yoga renders the Landing Home Page
+    if (rawUrl === "/api/index" || rawUrl === "/api" || rawUrl === "") {
+      req.url = "/";
+    }
+
     return await yoga(req, res);
   } catch (error: any) {
     console.error("Vercel Serverless Function Error:", error);

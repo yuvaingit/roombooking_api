@@ -10,7 +10,8 @@ export const schema = createSchema({
 
 export const yoga = createYoga({
   schema,
-  landingPage: false,
+  graphqlEndpoint: "/graphql",
+  landingPage: true,
 });
 
 const server = createServer(yoga);
