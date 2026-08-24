@@ -109,10 +109,9 @@ const HOME_PAGE_HTML = `<!DOCTYPE html>
 export default async function handler(req: any, res: any) {
   try {
     const rawUrl = req.url || "/";
-    const acceptHeader = req.headers?.accept || "";
 
     // Serve exact Home Page HTML when visiting root domain in browser
-    if ((rawUrl === "/" || rawUrl === "" || rawUrl === "/api" || rawUrl === "/api/index") && req.method === "GET" && acceptHeader.includes("text/html")) {
+    if (req.method === "GET" && (rawUrl === "/" || rawUrl === "" || rawUrl === "/api" || rawUrl === "/api/index")) {
       res.statusCode = 200;
       res.setHeader("Content-Type", "text/html; charset=utf-8");
       res.end(HOME_PAGE_HTML);
